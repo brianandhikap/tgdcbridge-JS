@@ -21,7 +21,8 @@
     "form-data": "^4.0.0",
     "dotenv": "^16.3.1",
     "node-fetch": "^3.3.2",
-    "input": "^1.0.1"
+    "input": "^1.0.1",
+    "express": "^4.18.2"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
