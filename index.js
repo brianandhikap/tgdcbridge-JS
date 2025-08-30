@@ -34,6 +34,8 @@ class TelegramDiscordForwarder {
       this.database = new Database()
       await this.database.init()
 
+      await this.displayDatabaseRoutings()
+
       // Initialize image processor
       console.log("🖼️ Initializing image processor...")
       this.imageProcessor = new ImageProcessor()
@@ -103,6 +105,39 @@ class TelegramDiscordForwarder {
       console.log(`📊 Webhook tests completed: ${successCount}/${routings.length} passed`)
     } catch (error) {
       console.error("Error testing webhooks:", error.message)
+    }
+  }
+
+  async displayDatabaseRoutings() {
+    try {
+      console.log("📋 Database Routing Configurations:")
+      console.log("-".repeat(50))
+
+      const routings = await this.database.getAllRoutings()
+
+      if (routings.length === 0) {
+        console.log("⚠️  No routing configurations found in database")
+        console.log("   Please add routing configurations using the database scripts")
+        console.log("-".repeat(50))
+        return
+      }
+
+      console.log(`📊 Found ${routings.length} routing configuration(s):`)
+      console.log("")
+
+      routings.forEach((routing, index) => {
+        console.log(`${index + 1}. Group ID: ${routing.ID_Groups}`)
+        console.log(`   Topic ID: ${routing.ID_Topic}`)
+        console.log(`   Discord Webhook: ${routing.DC_Webhook.substring(0, 50)}...`)
+        if (routing.Comment) {
+          console.log(`   Comment: ${routing.Comment}`)
+        }
+        console.log("")
+      })
+
+      console.log("-".repeat(50))
+    } catch (error) {
+      console.error("❌ Error displaying database routings:", error.message)
     }
   }
 
