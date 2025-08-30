@@ -11,7 +11,7 @@
     "test": "node scripts/test-all.js"
   },
   "keywords": ["telegram", "discord", "forwarder", "webhook", "realtime", "watermark"],
-  "author": "Brianandhikap",
+  "author": "NextBiy",
   "license": "MIT",
   "dependencies": {
     "telegram": "^2.22.2",
@@ -20,7 +20,8 @@
     "sharp": "^0.33.1",
     "form-data": "^4.0.0",
     "dotenv": "^16.3.1",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "input": "^1.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
