@@ -1,5 +1,5 @@
 const Database = require("./lib/database")
-const TelegramClient = require("./lib/telegram-client")
+const TelegramBot = require("./lib/telegram-client")
 const DiscordForwarder = require("./lib/discord-forwarder")
 const ImageProcessor = require("./lib/image-processor")
 const Utils = require("./lib/utils")
@@ -48,7 +48,7 @@ class TelegramDiscordForwarder {
 
       // Initialize Telegram client
       console.log("📱 Initializing Telegram client...")
-      this.telegramClient = new TelegramClient(this.database, this.discordForwarder, this.imageProcessor)
+      this.telegramClient = new TelegramBot(this.database, this.discordForwarder, this.imageProcessor)
       await this.telegramClient.init()
 
       // Setup cleanup routines
@@ -87,7 +87,8 @@ class TelegramDiscordForwarder {
       let successCount = 0
       for (const routing of routings) {
         if (this.discordForwarder.validateWebhookUrl(routing.DC_Webhook)) {
-          const testResult = await this.discordForwarder.testWebhook(routing.DC_Webhook)
+          const startupMessage = process.env.SW || "BOT Started"
+          const testResult = await this.discordForwarder.testWebhookWithMessage(routing.DC_Webhook, startupMessage)
           if (testResult) {
             successCount++
             console.log(`✅ Webhook test passed for group ${routing.ID_Groups}`)
