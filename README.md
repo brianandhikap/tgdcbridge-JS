@@ -45,7 +45,7 @@ A real-time message forwarder that automatically forwards messages from Telegram
    MYSQL_HOST=localhost
    MYSQL_USER=your_username
    MYSQL_PASSWORD=your_password
-   MYSQL_DATABASE=tgdcbridge_JS
+   MYSQL_DATABASE=DB_NAME
 
    # Default Photo Profile
    PP=PP.png
@@ -125,28 +125,28 @@ node scripts/test-watermark.js
 
 ```
 telegram-discord-forwarder/
-├── img/                          # Images directory
-│   ├── PP.png                   # Default profile picture
-│   └── WM.png                   # Watermark image
-├── db/                          # Database scripts
-│   ├── 01-create-database.sql   # Database creation
+├── img/                           # Images directory
+│   ├── PP.png                     # Default profile picture
+│   └── WM.png                     # Watermark image
+├── db/                            # Database scripts
+│   ├── 01-create-database.sql     # Database creation
 │   └── 02-insert-routing-data.sql # Sample routing data
-├── lib/                         # Core libraries
-│   ├── database.js              # Database connection and queries
-│   ├── telegram-client.js       # Telegram API client
-│   ├── discord-forwarder.js     # Discord webhook handler
-│   ├── image-processor.js       # Image processing and watermarking
-│   ├── media-handler.js         # Media file processing
-│   └── utils.js                 # Utility functions
-├── scripts/                     # Utility scripts
-│   ├── setup-database.js        # Database setup script
-│   └── test-watermark.js        # Watermark testing
-├── temp/                        # Temporary files (auto-created)
-├── logs/                        # Log files (auto-created)
-├── index.js                     # Main application entry point
-├── .env                         # Environment variables
-├── package.json                 # Node.js dependencies
-└── README.md                    # This file
+├── lib/                           # Core libraries
+│   ├── database.js                # Database connection and queries
+│   ├── telegram-client.js         # Telegram API client
+│   ├── discord-forwarder.js       # Discord webhook handler
+│   ├── image-processor.js         # Image processing and watermarking
+│   ├── media-handler.js           # Media file processing
+│   └── utils.js                   # Utility functions
+├── scripts/                       # Utility scripts
+│   ├── setup-database.js          # Database setup script
+│   └── test-watermark.js          # Watermark testing
+├── temp/                          # Temporary files (auto-created)
+├── logs/                          # Log files (auto-created)
+├── index.js                       # Main application entry point
+├── .env                           # Environment variables
+├── package.json                   # Node.js dependencies
+└── README.md                      # This file
 ```
 
 ## How It Works
