@@ -2,6 +2,7 @@ const Database = require("./lib/database")
 const TelegramBot = require("./lib/telegram-client")
 const DiscordForwarder = require("./lib/discord-forwarder")
 const ImageProcessor = require("./lib/image-processor")
+const ExpressServer = require("./lib/express-server")
 const Utils = require("./lib/utils")
 require("dotenv").config()
 
@@ -11,6 +12,7 @@ class TelegramDiscordForwarder {
     this.telegramClient = null
     this.discordForwarder = null
     this.imageProcessor = null
+    this.expressServer = null
     this.isRunning = false
     this.cleanupInterval = null
   }
@@ -28,6 +30,10 @@ class TelegramDiscordForwarder {
       // Create directory structure
       await Utils.createDirectoryStructure()
       await Utils.setupDefaultFiles()
+
+      console.log("🌐 Starting Express server for profile photo hosting...")
+      this.expressServer = new ExpressServer()
+      await this.expressServer.init()
 
       // Initialize database
       console.log("📊 Initializing database connection...")
@@ -188,6 +194,10 @@ class TelegramDiscordForwarder {
           await this.imageProcessor.cleanup()
         }
 
+        if (this.expressServer) {
+          await this.expressServer.stop()
+        }
+
         // Final cleanup
         const tempDir = require("path").join(__dirname, "temp")
         await Utils.cleanupOldFiles(tempDir, 0) // Clean all temp files
@@ -243,6 +253,7 @@ class TelegramDiscordForwarder {
       telegramConnected: this.telegramClient ? this.telegramClient.isReady() : false,
       databaseConnected: this.database ? true : false,
       imageProcessorReady: this.imageProcessor ? true : false,
+      expressServerRunning: this.expressServer ? true : false,
       uptime: process.uptime(),
       memoryUsage: process.memoryUsage(),
     }
